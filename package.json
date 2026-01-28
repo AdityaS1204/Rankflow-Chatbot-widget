@@ -1,0 +1,55 @@
+{
+  "name": "react-chatbot-widget",
+  "version": "0.1.0",
+  "description": "A customizable, reusable chatbot component for React and Next.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --external react --external react-dom",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch --external react --external react-dom",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "react",
+    "chatbot",
+    "chat",
+    "widget",
+    "nextjs",
+    "ai",
+    "component"
+  ],
+  "author": "Aditya <aditya@adityasingh.xyz>",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AdityaS1204/react-chatbot-widget"
+  },
+  "bugs": {
+    "url": "https://github.com/AdityaS1204/react-chatbot-widget/issues"
+  },
+  "homepage": "https://github.com/AdityaS1204/react-chatbot-widget#readme"
+}
