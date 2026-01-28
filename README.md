@@ -8,12 +8,12 @@ A customizable, reusable chatbot component for React and Next.js applications.
 
 ## Installation
 ```bash
-npm install chatbot-widget
+npm install react-chatbot-widget
 ```
 
 ## Quick Start
 ```tsx
-import { Chatbot } from 'chatbot-widget';
+import { Chatbot } from 'react-chatbot-widget';
 
 function App() {
   const handleMessage = async (message: string) => {
