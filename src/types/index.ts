@@ -25,12 +25,11 @@ export type ChatPosition = 'bottom-right' | 'bottom-left' | 'top-right' | 'top-l
 
 export interface ChatbotProps {
     onSendMessage: (message: string) => Promise<string>;
-    companyName: string;
     botName?: string;
     theme?: ChatbotTheme;
     position?: ChatPosition;
     chatbotIcon?: ReactNode | string;
-    companyLogo?: string;
+    Logo?: string | ReactNode;
     placeholder?: string;
     welcomeMessage?: string;
     initialMessages?: Message[];

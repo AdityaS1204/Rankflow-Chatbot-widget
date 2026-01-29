@@ -9,7 +9,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({
     theme = {},
     position = 'bottom-right',
     chatbotIcon,
-    companyLogo,
+    Logo,
     placeholder,
     welcomeMessage = `Hi!👋 I'm ${botName} AI assistant. How can I help you today?`,
     initialMessages = [],
@@ -133,7 +133,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({
                     position={position}
                     width={width}
                     height={height}
-                    companyLogo={companyLogo}
+                    Logo={Logo}
                     customHeader={customHeader}
                     customFooter={customFooter}
                 />

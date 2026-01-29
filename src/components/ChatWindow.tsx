@@ -15,7 +15,7 @@ interface ChatWindowProps {
     position?: ChatPosition;
     width?: string | number;
     height?: string | number;
-    companyLogo?: string | React.ReactNode;
+    Logo?: string | React.ReactNode;
     customHeader?: React.ReactNode;
     customFooter?: React.ReactNode;
 }
@@ -31,7 +31,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
     position = 'bottom-right',
     width = '380px',
     height = '600px',
-    companyLogo,
+    Logo,
     customHeader,
     customFooter,
 }) => {
@@ -246,16 +246,16 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                 <div style={headerStyle}>
                     {/* ... header content ... */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        {companyLogo && (
-                            typeof companyLogo === 'string' ? (
+                        {Logo && (
+                            typeof Logo === 'string' ? (
                                 <img
-                                    src={companyLogo}
+                                    src={Logo}
                                     alt={botName}
                                     style={{ width: '32px', height: '32px', objectFit: 'cover' }}
                                 />
                             ) : (
                                 <div style={{ width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                    {companyLogo}
+                                    {Logo}
                                 </div>
                             )
                         )}
