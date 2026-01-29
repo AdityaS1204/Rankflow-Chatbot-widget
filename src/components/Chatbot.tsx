@@ -23,6 +23,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({
     onMessageReceived,
     customHeader,
     customFooter,
+    showBranding = true,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<Message[]>(() => {
@@ -136,6 +137,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({
                     Logo={Logo}
                     customHeader={customHeader}
                     customFooter={customFooter}
+                    showBranding={showBranding}
                 />
             )}
         </>
