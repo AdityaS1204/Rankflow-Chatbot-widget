@@ -55,6 +55,7 @@ const App = () => {
 | `placeholder` | `string` | `"Type your message..."` | Input field placeholder text. |
 | `position` | `ChatPosition` | `"bottom-right"` | Window placement on screen. |
 | `persistMessages` | `boolean` | `false` | Enable/disable message history persistence. |
+| `showBranding` | `boolean` | `true` | Toggle the "Powered by RankFlow" branding footer. |
 | `maxMessages` | `number` | `100` | Maximum number of messages kept in history. |
 | `theme` | `ChatbotTheme` | `{}` | Customization object for UI elements. |
 
