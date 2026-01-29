@@ -5,14 +5,13 @@ import { ChatbotProps, Message } from '../types';
 
 export const Chatbot: React.FC<ChatbotProps> = ({
     onSendMessage,
-    companyName,
     botName,
     theme = {},
     position = 'bottom-right',
     chatbotIcon,
     companyLogo,
     placeholder,
-    welcomeMessage = `Hi! I'm the ${companyName} AI assistant. How can I help you today?`,
+    welcomeMessage = `Hi!👋 I'm ${botName} AI assistant. How can I help you today?`,
     initialMessages = [],
     persistMessages = false,
     maxMessages = 100,
@@ -29,7 +28,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({
     const [messages, setMessages] = useState<Message[]>(() => {
         // Load from localStorage if persistence is enabled
         if (persistMessages && typeof window !== 'undefined') {
-            const stored = localStorage.getItem(`chatbot-${companyName}-messages`);
+            const stored = localStorage.getItem(`chatbot-${botName}-messages`);
             if (stored) {
                 try {
                     return JSON.parse(stored);
@@ -55,11 +54,11 @@ export const Chatbot: React.FC<ChatbotProps> = ({
     useEffect(() => {
         if (persistMessages && typeof window !== 'undefined') {
             localStorage.setItem(
-                `chatbot-${companyName}-messages`,
+                `chatbot-${botName}-messages`,
                 JSON.stringify(messages.slice(-maxMessages))
             );
         }
-    }, [messages, persistMessages, companyName, maxMessages]);
+    }, [messages, persistMessages, botName, maxMessages]);
 
     const handleOpen = () => {
         setIsOpen(true);
@@ -128,7 +127,6 @@ export const Chatbot: React.FC<ChatbotProps> = ({
                     isLoading={isLoading}
                     onSendMessage={handleSendMessage}
                     onClose={handleClose}
-                    companyName={companyName}
                     botName={botName}
                     placeholder={placeholder}
                     theme={theme}
