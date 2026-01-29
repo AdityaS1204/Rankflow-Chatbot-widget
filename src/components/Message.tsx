@@ -12,7 +12,7 @@ interface MessageProps {
 
 export const Message: React.FC<MessageProps> = ({ message, theme }) => {
   const isUser = message.role === 'user';
-  
+
   const messageStyle: React.CSSProperties = {
     maxWidth: '80%',
     padding: '10px 14px',
@@ -22,13 +22,14 @@ export const Message: React.FC<MessageProps> = ({ message, theme }) => {
     borderTopLeftRadius: isUser ? '10px' : '2px',
     marginBottom: '8px',
     alignSelf: isUser ? 'flex-end' : 'flex-start',
-    backgroundColor: isUser 
+    backgroundColor: isUser
       ? theme?.userMessageColor || '#007bff'
       : theme?.botMessageColor || '#e9ecef',
-    color: isUser 
+    color: isUser
       ? '#ffffff'
       : theme?.textColor || '#000000',
     wordWrap: 'break-word',
+    whiteSpace: 'pre-wrap',
     fontSize: '14px',
     lineHeight: '1.4',
   };
