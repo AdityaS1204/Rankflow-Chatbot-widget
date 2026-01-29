@@ -1,6 +1,6 @@
 {
-  "name": "react-chat-bot-widget",
-  "version": "0.1.2",
+  "name": "rankflow-chatbot-widget",
+  "version": "0.1.3",
   "description": "A customizable, reusable chatbot component for React and Next.js",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -17,8 +17,8 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --external react --external react-dom",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --watch --external react --external react-dom",
+    "build": "tsup src/index.ts --format cjs,esm --dts --minify --clean --external react --external react-dom",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch --clean --external react --external react-dom",
     "prepublishOnly": "npm run build"
   },
   "keywords": [

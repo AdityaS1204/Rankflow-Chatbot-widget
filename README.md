@@ -1,87 +1,82 @@
-# React Chatbot Widget
+# RankFlow Chatbot Widget
 
-A beautiful, high-performance, and fully customizable chatbot component for React and Next.js applications.
+A customizable, production-ready chatbot component for React and Next.js applications. Designed for seamless integration, high performance, and deep customizability.
+
+[![npm version](https://img.shields.io/npm/v/rankflow-chatbot-widget.svg)](https://www.npmjs.com/package/rankflow-chatbot-widget)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Features
 
-- 🚀 **Lightweight & Fast**: Built with TypeScript and optimized for performance.
-- ✨ **Modern UI**: Sleek, premium design with smooth animations.
-- 📱 **Responsive**: Works perfectly on desktop and mobile.
-- 🎨 **Fully Customizable**: Personalize colors, icons, and behavior via themes and props.
-- 📝 **Dynamic Input**: Auto-expanding textarea for a seamless typing experience.
-- 📦 **Zero Dependencies**: Minimal footprint on your bundle size.
+- **TypeScript Native**: Full type safety for props and themes.
+- **Dynamic Textarea**: Smart auto-expanding input field with support for multiline messages.
+- **Persistence**: Optional message history persistence using `localStorage`.
+- **Zero Configuration**: Sensible defaults for immediate deployment.
+- **Theming API**: Granular control over colors, sizing, and positioning.
+- **Responsive Design**: Optimized for mobile and desktop viewports.
 
 ## Installation
 
 ```bash
-npm install react-chatbot-widget
+npm install rankflow-chatbot-widget
 ```
 
 ## Quick Start
 
 ```tsx
-import { Chatbot } from 'react-chatbot-widget';
+import { Chatbot } from 'rankflow-chatbot-widget';
 
-function App() {
-  const handleMessage = async (message: string) => {
-    // Your AI integration (e.g., OpenAI, Gemini, etc.)
-    const response = await fetch('/api/chat', {
-       method: 'POST',
-       body: JSON.stringify({ message })
-    });
-    const data = await response.json();
-    return data.reply;
+const App = () => {
+  const handleSendMessage = async (text: string) => {
+    // Integrate with your backend API or LLM (e.g., OpenAI, Gemini)
+    const response = await api.chat({ message: text });
+    return response.content;
   };
 
   return (
     <Chatbot
-      botName="Assistant"
-      onSendMessage={handleMessage}
-      welcomeMessage="Hi there! How can I help you today?"
+      botName="RankFlow Support"
+      onSendMessage={handleSendMessage}
+      welcomeMessage="Hi! How can I assist you today?"
     />
   );
-}
+};
 ```
 
-## Props
+## API Reference
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `onSendMessage` | `(msg: string) => Promise<string>` | **Required** | Handler for user messages, must return bot response. |
-| `botName` | `string` | `"AI Agent"` | Name displayed in the chat header. |
-| `welcomeMessage`| `string` | (Automatic) | The initial message shown to the user. |
-| `Logo` | `string \| ReactNode` | `null` | Logo displayed in the chat header. |
-| `placeholder` | `string` | `"Type your message..."`| Input field placeholder. |
-| `position` | `'bottom-right' \| 'bottom-left' \| 'top-right' \| 'top-left'` | `'bottom-right'` | Window position. |
-| `persistMessages`| `boolean` | `false` | Whether to save chat history in localStorage. |
-| `theme` | `ChatbotTheme` | `{}` | Custom styling object (see below). |
+### Component Props
 
-### Customizing the Theme
+| Property | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `onSendMessage` | `(msg: string) => Promise<string>` | *Required* | Async function called when a message is sent. |
+| `botName` | `string` | `"AI Agent"` | Header display name. |
+| `welcomeMessage` | `string` | (Contextual) | Initial greeting message. |
+| `Logo` | `string \| ReactNode` | `null` | Header logo (URL string or React component). |
+| `placeholder` | `string` | `"Type your message..."` | Input field placeholder text. |
+| `position` | `ChatPosition` | `"bottom-right"` | Window placement on screen. |
+| `persistMessages` | `boolean` | `false` | Enable/disable message history persistence. |
+| `maxMessages` | `number` | `100` | Maximum number of messages kept in history. |
+| `theme` | `ChatbotTheme` | `{}` | Customization object for UI elements. |
+
+### Theme Configuration
+
+The `theme` prop allows you to override default styles to match your application's design system.
 
 ```tsx
-const myTheme = {
-  primaryColor: '#000000',
-  backgroundColor: '#ffffff',
-  userMessageColor: '#000000',
-  botMessageColor: '#f3f4f6',
-  textColor: '#1f2937'
+const customTheme = {
+  primaryColor: '#000000',     // Header and primary actions
+  backgroundColor: '#ffffff',  // Chat window background
+  userMessageColor: '#000000', // User message bubble background
+  botMessageColor: '#f3f4f6',  // Bot message bubble background
+  textColor: '#1f2937'         // Main text color
 };
-
-<Chatbot theme={myTheme} ... />
 ```
 
-## Development
+## Technical Details
 
-```bash
-# Install dependencies
-npm install
-
-# Run build
-npm run build
-
-# Run in watch mode
-npm run dev
-```
+- **Built with**: React, TypeScript, and Tsup.
+- **Compatibility**: React 16.8+ (Hooks required).
+- **Styling**: Inline styles for maximum compatibility across different build environments (no external CSS dependencies).
 
 ## License
 
