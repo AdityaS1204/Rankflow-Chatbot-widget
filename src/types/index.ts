@@ -43,4 +43,5 @@ export interface ChatbotProps {
     onMessageReceived?: (message: Message) => void;
     customHeader?: ReactNode;
     customFooter?: ReactNode;
+    showBranding?: boolean;
 }
