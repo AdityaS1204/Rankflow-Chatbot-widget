@@ -18,6 +18,7 @@ interface ChatWindowProps {
     Logo?: string | React.ReactNode;
     customHeader?: React.ReactNode;
     customFooter?: React.ReactNode;
+    showBranding?: boolean;
 }
 
 export const ChatWindow: React.FC<ChatWindowProps> = ({
@@ -29,11 +30,12 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
     placeholder = 'Type your message...',
     theme = {},
     position = 'bottom-right',
-    width = '380px',
-    height = '600px',
+    width = '400px',
+    height = '590px',
     Logo,
     customHeader,
     customFooter,
+    showBranding = true,
 }) => {
     const [input, setInput] = useState('');
     const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -88,7 +90,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
         width: typeof width === 'number' ? `${width}px` : width,
         height: typeof height === 'number' ? `${height}px` : height,
         backgroundColor: theme.backgroundColor || '#ffffff',
-        borderRadius: '12px',
+        borderRadius: '20px',
         boxShadow: '0 5px 25px rgba(0, 0, 0, 0.2)',
         display: 'flex',
         flexDirection: 'column',
@@ -99,7 +101,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
     const headerStyle: React.CSSProperties = {
         backgroundColor: theme.headerBackground || '#000000ff',
         color: theme.headerTextColor || '#ffffff',
-        padding: '16px',
+        padding: '20px',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -126,7 +128,8 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
 
     const inputStyle: React.CSSProperties = {
         flex: 1,
-        padding: '7px 9px',
+        padding: '2px 0px 7px 15px',
+        marginTop: '8px',
         border: 'none',
         outline: 'none',
         fontSize: '14px',
@@ -158,12 +161,14 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
     const promptBoxStyle: React.CSSProperties = {
         display: 'flex',
         alignItems: 'flex-end',
+
         gap: '0px',
         width: '100%',
-        borderRadius: '10px',
+        borderRadius: '20px',
         border: '1px solid #e0e0e0',
         backgroundColor: '#ffffff',
         paddingRight: '6px',
+        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.08)',
     }
 
     const closeButtonStyle: React.CSSProperties = {
@@ -240,6 +245,15 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                     }
                     .typing-dot:nth-child(2) { animation-delay: 0.2s; }
                     .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+                    .rankflow-branding-link {
+                        color: #666;
+                        text-decoration: none;
+                        transition: color 0.2s, text-decoration 0.2s;
+                    }
+                    .rankflow-branding-link:hover {
+                        color: #007bff !important;
+                        text-decoration: underline !important;
+                    }
                 `}
             </style>
             {customHeader || (
@@ -357,6 +371,26 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                             <SendIcon />
                         </button>)}
                     </div>
+                </div>
+            )}
+
+            {showBranding && (
+                <div style={{
+                    padding: '4px 0 8px 0',
+                    textAlign: 'center',
+                    fontSize: '11px',
+                    color: '#999',
+                    backgroundColor: theme.inputBackground || '#ffffff',
+                }}>
+                    ⚡️Powered by{' '}
+                    <a
+                        href="https://rankflow.in"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rankflow-branding-link"
+                    >
+                        Rankflow
+                    </a>
                 </div>
             )}
         </div>
