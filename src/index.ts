@@ -6,6 +6,7 @@ export { ChatWindow } from './components/ChatWindow';
 export { ChatIcon } from './components/ChatIcon';
 export { Message } from './components/Message';
 export { SendIcon } from './components/SendIcon';
+export { ScrollBottomIcon } from './components/ScrollBottomIcon';
 
 // Types
 export type {
