@@ -278,6 +278,25 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                         margin: 10px 0;
                     }
                     .chatbot-markdown pre code { background: none; padding: 0; color: inherit; }
+                    .chatbot-markdown a { color: #007bff; text-decoration: underline; }
+                    .chatbot-markdown table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+                    .chatbot-markdown th, .chatbot-markdown td { border: 1px solid #e0e0e0; padding: 6px 10px; text-align: left; }
+                    .chatbot-markdown th { background: #f8f9fa; }
+                    
+                    /* Streaming Caret */
+                    .chatbot-markdown [data-streamdown-caret] {
+                        display: inline-block;
+                        width: 8px;
+                        height: 15px;
+                        background: currentColor;
+                        margin-left: 4px;
+                        vertical-align: middle;
+                        animation: caret-blink 1s step-end infinite;
+                    }
+                    @keyframes caret-blink {
+                        0%, 100% { opacity: 0; }
+                        50% { opacity: 1; }
+                    }
                 `}
             </style>
             {customHeader || (
