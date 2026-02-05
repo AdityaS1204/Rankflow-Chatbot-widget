@@ -24,6 +24,9 @@ export const Chatbot: React.FC<ChatbotProps> = ({
     customHeader,
     customFooter,
     showBranding = true,
+    enableMarkdown = false,
+    enableCodeHighlighting = false,
+    enableStreaming = false,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<Message[]>(() => {
@@ -86,18 +89,48 @@ export const Chatbot: React.FC<ChatbotProps> = ({
         setIsLoading(true);
 
         try {
-            const response = await onSendMessage(content);
+            if (enableStreaming) {
+                const assistantMessageId = `assistant-${Date.now()}`;
+                const assistantMessage: Message = {
+                    role: 'assistant',
+                    content: '',
+                    timestamp: new Date(),
+                    id: assistantMessageId,
+                };
 
-            // Handle regular response
-            const assistantMessage: Message = {
-                role: 'assistant',
-                content: response,
-                timestamp: new Date(),
-                id: `assistant-${Date.now()}`,
-            };
+                setMessages((prev) => [...prev, assistantMessage].slice(-maxMessages));
 
-            setMessages((prev) => [...prev, assistantMessage].slice(-maxMessages));
-            onMessageReceived?.(assistantMessage);
+                const response = await (onSendMessage as any)(content, (chunk: string) => {
+                    setMessages((prev) =>
+                        prev.map((m) =>
+                            m.id === assistantMessageId
+                                ? { ...m, content: m.content + chunk }
+                                : m
+                        )
+                    );
+                });
+
+                const finalMessage = {
+                    role: 'assistant' as const,
+                    content: typeof response === 'string' ? response : '',
+                    timestamp: new Date(),
+                    id: assistantMessageId,
+                };
+                onMessageReceived?.(finalMessage);
+            } else {
+                const response = await onSendMessage(content);
+
+                // Handle regular response
+                const assistantMessage: Message = {
+                    role: 'assistant',
+                    content: response || '',
+                    timestamp: new Date(),
+                    id: `assistant-${Date.now()}`,
+                };
+
+                setMessages((prev) => [...prev, assistantMessage].slice(-maxMessages));
+                onMessageReceived?.(assistantMessage);
+            }
         } catch (error) {
             console.error('Error sending message:', error);
             const errorMessage: Message = {
@@ -138,6 +171,8 @@ export const Chatbot: React.FC<ChatbotProps> = ({
                     customHeader={customHeader}
                     customFooter={customFooter}
                     showBranding={showBranding}
+                    enableMarkdown={enableMarkdown}
+                    enableCodeHighlighting={enableCodeHighlighting}
                 />
             )}
         </>
