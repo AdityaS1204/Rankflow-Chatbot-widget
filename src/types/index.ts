@@ -24,7 +24,7 @@ export interface Message {
 export type ChatPosition = 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
 
 export interface ChatbotProps {
-    onSendMessage: (message: string) => Promise<string>;
+    onSendMessage: (message: string, updateMessage?: (chunk: string) => void) => Promise<string | void>;
     botName?: string;
     theme?: ChatbotTheme;
     position?: ChatPosition;
@@ -44,4 +44,7 @@ export interface ChatbotProps {
     customHeader?: ReactNode;
     customFooter?: ReactNode;
     showBranding?: boolean;
+    enableMarkdown?: boolean;
+    enableCodeHighlighting?: boolean;
+    enableStreaming?: boolean;
 }
