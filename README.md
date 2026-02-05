@@ -8,11 +8,11 @@ A customizable, production-ready chatbot component for React and Next.js applica
 ## Features
 
 - **TypeScript Native**: Full type safety for props and themes.
+- **Streaming Markdown**: Real-time rendering of AI responses with Vercel's Streamdown.
+- **Code Syntax Highlighting**: Professional code blocks with Shiki (requires `enableCodeHighlighting`).
 - **Dynamic Textarea**: Smart auto-expanding input field with support for multiline messages.
 - **Persistence**: Optional message history persistence using `localStorage`.
-- **Zero Configuration**: Sensible defaults for immediate deployment.
 - **Theming API**: Granular control over colors, sizing, and positioning.
-- **Responsive Design**: Optimized for mobile and desktop viewports.
 
 ## Installation
 
@@ -22,12 +22,13 @@ npm install rankflow-chatbot-widget
 
 ## Quick Start
 
+### Basic Usage
+
 ```tsx
 import { Chatbot } from 'rankflow-chatbot-widget';
 
 const App = () => {
   const handleSendMessage = async (text: string) => {
-    // Integrate with your backend API or LLM (e.g., OpenAI, Gemini)
     const response = await api.chat({ message: text });
     return response.content;
   };
@@ -42,13 +43,52 @@ const App = () => {
 };
 ```
 
+### Streaming Example (Markdown & Code Highlighting)
+
+```tsx
+import { Chatbot } from 'rankflow-chatbot-widget';
+
+const App = () => {
+  const handleStreamingMessage = async (text: string, updateMessage: (chunk: string) => void) => {
+    // Example using an AI SDK that supports streaming
+    const response = await fetch('/api/chat', {
+       method: 'POST',
+       body: JSON.stringify({ message: text })
+    });
+    
+    const reader = response.body?.getReader();
+    const decoder = new TextDecoder();
+    
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const chunk = decoder.decode(value);
+      updateMessage(chunk); // Update the UI in real-time
+    }
+  };
+
+  return (
+    <Chatbot
+      botName="Assistant"
+      enableStreaming={true}
+      enableMarkdown={true}
+      enableCodeHighlighting={true}
+      onSendMessage={handleStreamingMessage}
+    />
+  );
+};
+```
+
 ## API Reference
 
 ### Component Props
 
 | Property | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `onSendMessage` | `(msg: string) => Promise<string>` | *Required* | Async function called when a message is sent. |
+| `onSendMessage` | `(msg: string, update?: (chunk: string) => void) => Promise<string \| void>` | *Required* | Async function called when a message is sent. Supports streaming if `enableStreaming` is true. |
+| `enableStreaming` | `boolean` | `false` | Enable support for chunk-based message updates (useful for LLMs). |
+| `enableMarkdown` | `boolean` | `false` | Renders bot responses using Markdown. |
+| `enableCodeHighlighting` | `boolean` | `false` | Enables syntax highlighting for code blocks (requires `enableMarkdown`). |
 | `botName` | `string` | `"AI Agent"` | Header display name. |
 | `welcomeMessage` | `string` | (Contextual) | Initial greeting message. |
 | `Logo` | `string \| ReactNode` | `null` | Header logo (URL string or React component). |
@@ -58,6 +98,8 @@ const App = () => {
 | `showBranding` | `boolean` | `true` | Toggle the "Powered by RankFlow" branding footer. |
 | `maxMessages` | `number` | `100` | Maximum number of messages kept in history. |
 | `theme` | `ChatbotTheme` | `{}` | Customization object for UI elements. |
+| `onMessageSent` | `(msg: Message) => void` | `undefined` | Callback fired when user sends a message. |
+| `onMessageReceived` | `(msg: Message) => void` | `undefined` | Callback fired when bot responds. |
 
 ### Theme Configuration
 
