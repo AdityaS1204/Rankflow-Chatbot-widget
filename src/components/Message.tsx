@@ -1,4 +1,6 @@
 import React from 'react';
+import { Streamdown } from 'streamdown';
+import { code } from '@streamdown/code';
 import { Message as MessageType } from '../types/index';
 
 interface MessageProps {
@@ -8,13 +10,15 @@ interface MessageProps {
     botMessageColor?: string;
     textColor?: string;
   };
+  enableMarkdown?: boolean;
+  enableCodeHighlighting?: boolean;
 }
 
-export const Message: React.FC<MessageProps> = ({ message, theme }) => {
+export const Message: React.FC<MessageProps> = ({ message, theme, enableMarkdown, enableCodeHighlighting }) => {
   const isUser = message.role === 'user';
 
   const messageStyle: React.CSSProperties = {
-    maxWidth: '80%',
+    maxWidth: '85%',
     padding: '10px 14px',
     borderTopRightRadius: isUser ? '2px' : '10px',
     borderBottomRightRadius: '10px',
@@ -29,14 +33,25 @@ export const Message: React.FC<MessageProps> = ({ message, theme }) => {
       ? '#ffffff'
       : theme?.textColor || '#000000',
     wordWrap: 'break-word',
-    whiteSpace: 'pre-wrap',
     fontSize: '14px',
-    lineHeight: '1.4',
+    lineHeight: '1.5',
   };
 
   return (
     <div style={messageStyle}>
-      {message.content}
+      {enableMarkdown ? (
+        <React.Suspense fallback={<div style={{ whiteSpace: 'pre-wrap' }}>{message.content}</div>}>
+          <div className="chatbot-markdown">
+            <Streamdown plugins={enableCodeHighlighting ? { code } : {}}>
+              {message.content}
+            </Streamdown>
+          </div>
+        </React.Suspense>
+      ) : (
+        <div style={{ whiteSpace: 'pre-wrap' }}>
+          {message.content}
+        </div>
+      )}
     </div>
   );
 };
