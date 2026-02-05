@@ -19,6 +19,8 @@ interface ChatWindowProps {
     customHeader?: React.ReactNode;
     customFooter?: React.ReactNode;
     showBranding?: boolean;
+    enableMarkdown?: boolean;
+    enableCodeHighlighting?: boolean;
 }
 
 export const ChatWindow: React.FC<ChatWindowProps> = ({
@@ -36,6 +38,8 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
     customHeader,
     customFooter,
     showBranding = true,
+    enableMarkdown = false,
+    enableCodeHighlighting = false,
 }) => {
     const [input, setInput] = useState('');
     const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -254,6 +258,26 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                         color: #007bff !important;
                         text-decoration: underline !important;
                     }
+                    /* Markdown Styles */
+                    .chatbot-markdown p { margin: 0 0 8px 0; }
+                    .chatbot-markdown p:last-child { margin-bottom: 0; }
+                    .chatbot-markdown ul, .chatbot-markdown ol { margin: 8px 0; padding-left: 20px; }
+                    .chatbot-markdown li { margin-bottom: 4px; }
+                    .chatbot-markdown code { 
+                        background: rgba(0,0,0,0.05); 
+                        padding: 2px 4px; 
+                        border-radius: 4px; 
+                        font-family: monospace; 
+                    }
+                    .chatbot-markdown pre { 
+                        background: #1e1e1e; 
+                        color: #ffffff;
+                        padding: 12px; 
+                        border-radius: 8px; 
+                        overflow-x: auto;
+                        margin: 10px 0;
+                    }
+                    .chatbot-markdown pre code { background: none; padding: 0; color: inherit; }
                 `}
             </style>
             {customHeader || (
@@ -298,6 +322,8 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                         key={message.id || index}
                         message={message}
                         theme={theme}
+                        enableMarkdown={enableMarkdown}
+                        enableCodeHighlighting={enableCodeHighlighting}
                     />
                 ))}
                 {isLoading && (
