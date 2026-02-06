@@ -1,6 +1,5 @@
 import React from 'react';
 import { Streamdown } from 'streamdown';
-import { code } from '@streamdown/code';
 import { Message as MessageType } from '../types/index';
 
 interface MessageProps {
@@ -11,10 +10,9 @@ interface MessageProps {
     textColor?: string;
   };
   enableMarkdown?: boolean;
-  enableCodeHighlighting?: boolean;
 }
 
-export const Message: React.FC<MessageProps> = ({ message, theme, enableMarkdown, enableCodeHighlighting }) => {
+export const Message: React.FC<MessageProps> = ({ message, theme, enableMarkdown }) => {
   const isUser = message.role === 'user';
 
   const messageStyle: React.CSSProperties = {
@@ -42,7 +40,7 @@ export const Message: React.FC<MessageProps> = ({ message, theme, enableMarkdown
       {enableMarkdown ? (
         <React.Suspense fallback={<div style={{ whiteSpace: 'pre-wrap' }}>{message.content}</div>}>
           <div className="chatbot-markdown">
-            <Streamdown plugins={enableCodeHighlighting ? { code } : {}}>
+            <Streamdown>
               {message.content}
             </Streamdown>
           </div>
