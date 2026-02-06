@@ -20,7 +20,6 @@ interface ChatWindowProps {
     customFooter?: React.ReactNode;
     showBranding?: boolean;
     enableMarkdown?: boolean;
-    enableCodeHighlighting?: boolean;
 }
 
 export const ChatWindow: React.FC<ChatWindowProps> = ({
@@ -39,7 +38,6 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
     customFooter,
     showBranding = true,
     enableMarkdown = false,
-    enableCodeHighlighting = false,
 }) => {
     const [input, setInput] = useState('');
     const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -342,7 +340,6 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                         message={message}
                         theme={theme}
                         enableMarkdown={enableMarkdown}
-                        enableCodeHighlighting={enableCodeHighlighting}
                     />
                 ))}
                 {isLoading && (
