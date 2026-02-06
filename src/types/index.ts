@@ -45,6 +45,5 @@ export interface ChatbotProps {
     customFooter?: ReactNode;
     showBranding?: boolean;
     enableMarkdown?: boolean;
-    enableCodeHighlighting?: boolean;
     enableStreaming?: boolean;
 }
