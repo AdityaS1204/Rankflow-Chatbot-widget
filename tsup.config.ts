@@ -9,6 +9,5 @@ export default defineConfig({
   clean: true,
   minify: true,
   treeshake: true,
-  external: ['react', 'react-dom'],
-  noExternal: ['streamdown', '@streamdown/code'],
+  external: ['react', 'react-dom', 'streamdown'],
 });

@@ -17,8 +17,8 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --minify --clean --external react --external react-dom",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --watch --clean --external react --external react-dom",
+    "build": "tsup",
+    "dev": "tsup --watch",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
@@ -53,7 +53,6 @@
   },
   "homepage": "https://github.com/AdityaS1204/react-chatbot-widget#readme",
   "dependencies": {
-    "@streamdown/code": "^1.0.1",
     "streamdown": "^2.1.0"
   }
 }
