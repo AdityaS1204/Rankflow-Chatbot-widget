@@ -25,7 +25,6 @@ export const Chatbot: React.FC<ChatbotProps> = ({
     customFooter,
     showBranding = true,
     enableMarkdown = false,
-    enableCodeHighlighting = false,
     enableStreaming = false,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -172,7 +171,6 @@ export const Chatbot: React.FC<ChatbotProps> = ({
                     customFooter={customFooter}
                     showBranding={showBranding}
                     enableMarkdown={enableMarkdown}
-                    enableCodeHighlighting={enableCodeHighlighting}
                 />
             )}
         </>
